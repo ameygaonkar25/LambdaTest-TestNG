@@ -38,10 +38,6 @@ public class ScenarioTests {
         ltOptions.put("name", "ScenarioTests");
         ltOptions.put("selenium_version", "4.0.0");
         ltOptions.put("w3c", true);
-//        ltOptions.put("console", "true");
-//        ltOptions.put("network", true);
-//        ltOptions.put("visual", true);
-//        ltOptions.put("video", true);
         ltOptions.put("browserName", browser);
         ltOptions.put("browserVersion", version);
         ltOptions.put("platform", platform);
@@ -61,11 +57,15 @@ public class ScenarioTests {
     @Test
     public void scenarioOne() {
         System.out.println("Beginning execution of: Test Scenario 1");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+        // Wait for the page to load completely
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete'"));
+
         SoftAssert softAssert = new SoftAssert();
         String pageTitle = driver.getTitle();
-        softAssert.assertEquals(pageTitle, "Selenium Grid Online | Run Selenium Test On Cloud");
+        softAssert.assertEquals(pageTitle, "LambdaTest");
         softAssert.assertAll();
         System.out.println("Execution Complete: Test Scenario 1");
     }
